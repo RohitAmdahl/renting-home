@@ -1,19 +1,25 @@
 import { lazy, Suspense } from "react";
-import { Route, Router } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
-const Homepage = lazy((): React.FC => import("./pages/HomePage"));
-const SpecificPage = lazy((): React.FC => import("./pages/SpecificPage"));
-const Login = lazy((): React.FC => import("./pages/LogIn"));
-const RegisterPage = lazy((): React.FC => import("./pages/Register"));
-const NotFound = lazy((): React.FC => import("./pages/PageNotFound"));
+const Homepage = lazy(() => import("./pages/HomePage"));
+const SpecificPage = lazy(() => import("./pages/SpecificPage"));
+const Login = lazy(() => import("./pages/LogIn"));
+const RegisterPage = lazy(() => import("./pages/Register"));
+const NotFound = lazy(() => import("./pages/PageNotFound"));
 
-function App() {8wju
+function App() {
   return (
-    <div>
-      <div>
-        <h1 className="bg-red-600">hello </h1>
-      </div>
-    </div>
+    <Suspense fallback={<div>loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Homepage />} />
+          <Route path="/detail/:id" element={<SpecificPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<RegisterPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
 
