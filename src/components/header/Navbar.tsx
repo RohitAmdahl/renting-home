@@ -1,19 +1,24 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { NavigationLinks, navItems } from "../../helpers/type";
 const Navbar: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto items-center py-2 px-2 m-4">
+    <div className="flex justify-around items-center w-full max-w-4xl container border-b-2 mx-auto py-2 px-2 m-4">
       <div>
         <NavLink to="/">
-          <img src={logo} alt="logo" className="" />
+          <img src={logo} alt="logo" />
         </NavLink>
       </div>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
+      <div className=" flex max-w-4xl">
+        <nav className="flex">
+          <ul className="flex">
+            {navItems.map((items: NavigationLinks) => {
+              return (
+                <li key={items.id} className="justify-around px-2">
+                  <NavLink to={items.link}>{items.name}</NavLink>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>

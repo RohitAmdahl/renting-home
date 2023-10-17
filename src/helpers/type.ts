@@ -1,7 +1,22 @@
-export interface Items {
+export interface NavigationLinks {
   id: number;
   name: string;
-  media: any[];
-  price: string;
-  data: any[];
+  link: string;
 }
+export const navItems: NavigationLinks[] = [
+  {
+    id: 1,
+    name: "Home",
+    link: "/",
+  },
+  {
+    id: 2,
+    name: "login",
+    link: "/login",
+  },
+  {
+    id: 3,
+    name: "Register",
+    link: "/signup",
+  },
+];
