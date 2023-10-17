@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/card/Card";
+
 interface Value {
   id: number;
   name: string;
   media: any[];
   price: string;
-  // data: any[];
+  description: string;
+  location: {};
 }
 
-interface ApiResponse {
-  data: Value[];
-}
+// const url = `https://api.noroff.dev/api/v1/holidaze/venues`;
 
 const FetchData: React.FC = () => {
   //declare state variable for storing data and loading state
-  const [data, setData] = useState<Value | null>(null);
+  const [data, setData] = useState<Value[]>([]);
   const [loading, setLoading] = useState(true);
+
   // useEffect hook runs after the initial render
   useEffect(() => {
-    const url = `https://api.noroff.dev/api/v1/holidaze/venues`;
     // Define an asynchronous function fetchData using async/await syntax
-    const apiCall = async () => {
+    const apiCall = async (url: string) => {
       try {
         const response = await fetch(url);
         console.log(response);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const resultsData: Value = await response.json();
+        const resultsData: Value[] = await response.json();
         console.log(resultsData);
         setData(resultsData);
       } catch (error) {
@@ -40,20 +40,18 @@ const FetchData: React.FC = () => {
         setLoading(false);
       }
     };
-    apiCall();
+    apiCall(`https://api.noroff.dev/api/v1/holidaze/venues`);
   }, []);
   if (loading) {
     return <div>Loading...</div>;
   }
   return (
     <>
-      {data.map((venue) => {
+      {data?.map((venue: Value) => {
         return (
-          <>
-            <div>
-              <Card key={venue.id} venue={venue} />
-            </div>
-          </>
+          <div key={venue.id}>
+            <Card key={venue.id} venue={venue} />
+          </div>
         );
       })}
     </>
