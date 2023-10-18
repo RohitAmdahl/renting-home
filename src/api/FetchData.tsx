@@ -36,7 +36,7 @@ const FetchData: React.FC = () => {
           error
         );
       } finally {
-        // Set loading to false, regardless of whether the fetch operation succeeds or fails
+        // Set loading to false
         setLoading(false);
       }
     };
@@ -49,7 +49,7 @@ const FetchData: React.FC = () => {
     <>
       {data?.map((venue: Value) => {
         return (
-          <div key={venue.id}>
+          <div key={venue.id} className="">
             <Card key={venue.id} venue={venue} />
           </div>
         );
