@@ -1,4 +1,4 @@
-enum StatusType {
+export enum StatusType {
   sent = "sent",
   pending = "pending",
   notSent = "not-sent",

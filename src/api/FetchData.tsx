@@ -15,44 +15,32 @@ interface Location {
   country: string;
 }
 
-// const url = `https://api.noroff.dev/api/v1/holidaze/venues`;
-
-const FetchData: React.FC = () => {
-  //declare state variable for storing data and loading state
+const FetchData = () => {
   const [data, setData] = useState<Value[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null |unknown>(null);
 
   const fetchVenues = async () => {
-         const url = `https://api.noroff.dev/api/v1/holidaze/venues`;
-      try {
-        const response = await fetch(url);
-        console.log(response);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const resultsData: Value[] = await response.json();
-        console.log(resultsData);
-        setData(resultsData);
-      } catch (error) {
-        setError(error)
-        console.log(
-          "There has been a problem with your fetch operation:",
-          error
-        );
-      } finally {
-        // Set loading to false
-        setLoading(false);
+    const url = `https://api.noroff.dev/api/v1/holidaze/venues`;
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  // useEffect hook runs after the initial render
-  useEffect(()=> {
-    // Define an asynchronous function fetchData using async/await syntax
+      const resultsData: Value[] = await response.json();
+
+      setData(resultsData);
+    } catch (error) {
+      console.log("There has been a problem with your fetch operation:", error);
+    } finally {
+      // Set loading to false
+      setLoading(false);
+    }
+    // useEffect hook runs after the initial render
+  };
+  useEffect(() => {
     fetchVenues();
-    };
-
   }, []);
-
-  
   if (loading) {
     return <div>Loading...</div>;
   }

@@ -8,7 +8,7 @@ interface Venue {
   media: any[];
   price: string;
   description: string;
-  location: {};
+  // location: {};
   // ... other properties
 }
 
